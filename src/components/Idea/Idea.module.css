@@ -1,0 +1,55 @@
+.ideaContainer {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.ideaForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.ideaTitleLabel, .ideaLabelDescription {
+    display: flex; 
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ideaTitleLabel {
+    /* width: 50% */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ideaTitleInput {
+    width: 70%
+}
+
+.ideaLabelDescription {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ideaDescriptionInput {
+    margin-top: 5px;
+    width: 95%;
+    align-self: center;
+    height: 50px
+}
+
+.ideaTimestamp {
+    font-size: 12px;
+    color: #a9a9a9;
+}
+
+.callToActionContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}

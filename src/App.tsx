@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Idea } from "./components/Idea/Idea";
+import { IdeaList } from "./components/IdeaList/IdeaList";
+import "./App.css";
+import { IdeaContextProvider } from "./utilities/context/IdeaContext";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="container">
+      <h1 className="appTitle">Ideas Board</h1>
+      <div className="ideasContainer">
+        <IdeaContextProvider>
+          <Idea />
+          <IdeaList />
+        </IdeaContextProvider>
+      </div>
+    </main>
   );
-}
+};
 
 export default App;
