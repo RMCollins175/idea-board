@@ -12,3 +12,7 @@
 - Better styling / design - maybe a dark / light mode option. I can create a theme file and then use that to style the components. Would would be the options and what would be the best bang for your buck.
 
 - Complete testing
+
+### How to view this project
+
+https://idea-board-one.vercel.app/
