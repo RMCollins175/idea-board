@@ -2,6 +2,7 @@
     min-width: 200px;
     max-width: 200px;
     min-height: 200px;
+    max-height: 200px;
     background-color: aliceblue;
     border-radius: 10px;
     border: 1px solid black;
@@ -14,7 +15,7 @@
     padding: 10px;
 }
 
-.ideaTitleLabel, .ideaLabelDescription {
+.ideaTitleLabel, .ideaDescriptionLabel {
     display: flex; 
     border: 1px solid #eaeaea;
     border-radius: 4px;
@@ -22,7 +23,6 @@
 }
 
 .ideaTitleLabel {
-    /* width: 50% */
     justify-content: space-between;
     align-items: center;
 }
@@ -31,16 +31,17 @@
     width: 70%
 }
 
-.ideaLabelDescription {
+.ideaDescriptionLabel { 
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-start; 
 }
 
 .ideaDescriptionInput {
     margin-top: 5px;
-    width: 95%;
     align-self: center;
-    height: 50px
+    max-width: 95%;
+    max-height: 65px;
+    min-height: 65px;
 }
 
 .ideaTimestamp {

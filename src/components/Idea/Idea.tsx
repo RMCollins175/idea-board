@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import styles from "./Idea.module.css";
 import { format } from "date-fns";
 import { useContext } from "react";
@@ -69,7 +69,7 @@ export const Idea = ({
           />
         </label>
         <label
-          className={styles.ideaLabelDescription}
+          className={styles.ideaDescriptionLabel}
           data-testid="IdeaForm.description"
         >
           <textarea
