@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { IdeaType } from "../types";
+import { IdeaType } from "../types/types";
 
-export const useIdeaHook = () => {
-  const [ideas, setIdeas] = useState<IdeaType[]>(
-    // JSON.parse(localStorage.getItem("ideas") || "[]")
-    []
-  );
+export const useIdeaHook = (key: string) => {
+  const [ideas, setIdeas] = useState<IdeaType[]>();
+  // JSON.parse(localStorage.getItem("ideas") || "[]")
 
   useEffect(() => {
-    setIdeas(JSON.parse(localStorage.getItem("ideas") || "[]"));
-  }, []);
+    // no idea => idea => []
+    if (ideas === undefined) {
+      setIdeas(JSON.parse(localStorage.getItem(key) || "[]"));
+    }
+  }, [key]);
 
   const addIdea = (title: string, description: string) => {
     let id = 1;
@@ -18,7 +19,7 @@ export const useIdeaHook = () => {
     }
     const newIdeas = [
       ...ideas,
-      { title, description, timestamp: Date.now(), id }
+      { title, description, createdAt: Date.now(), id }
     ];
     setIdeas(newIdeas);
     localStorage.setItem("ideas", JSON.stringify(newIdeas));
@@ -27,7 +28,7 @@ export const useIdeaHook = () => {
   const updateIdea = (id: number, title: string, description: string) => {
     const updatedIdeas = ideas.map((idea) => {
       if (idea.id === id) {
-        return { ...idea, title, description, timestamp: Date.now() };
+        return { ...idea, title, description, updatedAt: Date.now() };
       }
       return idea;
     });

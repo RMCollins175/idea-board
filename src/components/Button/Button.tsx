@@ -12,14 +12,13 @@ export const Button = ({
   text,
   onClick,
   dataTestId,
-  style = {},
+  style = {}
 }: ButtonProps) => (
   <button
     onClick={onClick}
     className={styles.button}
     style={style}
     data-testid={dataTestId}
-    role="button"
     aria-label={`${text} button`}
   >
     {text}

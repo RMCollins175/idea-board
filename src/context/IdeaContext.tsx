@@ -1,6 +1,6 @@
 import React from "react";
 import { useIdeaHook } from "../hooks/useIdea";
-import { IdeaType } from "../types";
+import { IdeaType } from "../types/types";
 
 export interface IdeaContextType {
   ideaTitle?: string;
@@ -16,8 +16,14 @@ export interface IdeaContextType {
 // export const IdeaContext = React.createContext<IdeaContextType>({});
 export const IdeaContext = React.createContext({});
 
-export const IdeaContextProvider = ({ children }: any) => {
+const Header = () => {
   const { ideas, addIdea, updateIdea, deleteIdea } = useIdeaHook();
+
+  return <p>{ideas[0].title}</p>;
+};
+
+export const IdeaContextProvider = ({ children }: any) => {
+  const { ideas, addIdea, updateIdea, deleteIdea } = useIdeaHook("ideas");
 
   const IdeaContextValue: IdeaContextType = {
     ideas,

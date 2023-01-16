@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import {
-  IdeaContext,
-  IdeaContextType
-} from "../../utilities/context/IdeaContext";
+import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
+import { IdeaType } from "../../types/types";
 import { Idea } from "../Idea/Idea";
 import styles from "./IdeaList.module.css";
 
@@ -11,14 +9,9 @@ export const IdeaList = () => {
 
   return (
     <div className={styles.ideaListcontainer}>
-      {ideas.map((idea: any) => (
+      {ideas.map((idea: IdeaType) => (
         <div className={styles.ideaContainer} key={idea.id}>
-          <Idea
-            ideaTitle={idea.title}
-            ideaDescription={idea.description}
-            id={idea.id}
-            timestamp={idea.timestamp}
-          />
+          <Idea idea={idea} />
         </div>
       ))}
     </div>

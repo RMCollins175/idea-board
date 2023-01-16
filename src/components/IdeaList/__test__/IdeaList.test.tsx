@@ -1,7 +1,8 @@
 import renderer from "react-test-renderer";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { IdeaList } from "../IdeaList";
+import { IdeaContextProvider } from "../../../context/IdeaContext";
 
 const IdeaListProps = {
   ideas: [
@@ -20,12 +21,11 @@ const IdeaListProps = {
   ]
 };
 
-// describe("Idea component tests", () => {
-//   it("should render a list of Ideas", () => {
-//     // snapshot for a list of ideas of length 2
-//     const IdeaListComponent = renderer
-//       .create(<IdeaList {...IdeaListProps} />)
-//       .toJSON();
-//     expect(IdeaListComponent).toMatchSnapshot();
-//   });
-// });
+describe("Idea component tests", () => {
+  it("should render a list of Ideas", () => {
+    // snapshot for a list of ideas of length 2
+    const render = render(<IdeaList />);
+
+    expect(render.firstChild).toMatchSnapshot();
+  });
+});

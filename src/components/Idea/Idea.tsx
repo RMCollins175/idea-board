@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import styles from "./Idea.module.css";
 import { format } from "date-fns";
 import { useContext } from "react";
-import {
-  IdeaContext,
-  IdeaContextType
-} from "../../utilities/context/IdeaContext";
+import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
 
 export interface IdeaProps {
-  ideaTitle?: string;
-  ideaDescription?: string;
-  id?: number;
-  timestamp?: number;
+  ideaTitle: string;
+  ideaDescription: string;
+  id: number;
+  timestamp: number;
 }
+
+type IdeaType = IdeaProps | null;
 
 export const Idea = ({
   ideaTitle,
@@ -34,15 +33,9 @@ export const Idea = ({
     if (id) {
       updateIdea(id, inputTitle, inputDescription);
     } else {
-      if (addIdea) addIdea(inputTitle, inputDescription);
+      addIdea(inputTitle, inputDescription);
       setInputTitle("");
       setInputDescription("");
-    }
-  };
-
-  const handleDelete = () => {
-    if (id) {
-      deleteIdea(id);
     }
   };
 
@@ -107,7 +100,10 @@ export const Idea = ({
             Reset
           </button>
           {id && (
-            <button data-testid="IdeaForm.buttonDelete" onClick={handleDelete}>
+            <button
+              data-testid="IdeaForm.buttonDelete"
+              onClick={() => deleteIdea(id)}
+            >
               Delete
             </button>
           )}
