@@ -13,6 +13,8 @@
 
 - Complete testing
 
+- Accessibility
+
 ### How to view this project
 
 https://idea-board-one.vercel.app/
