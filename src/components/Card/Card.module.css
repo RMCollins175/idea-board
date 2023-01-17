@@ -1,0 +1,56 @@
+.ideaContainer {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.ideaForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.ideaTitleLabel, .ideaDescriptionLabel {
+    display: flex; 
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.ideaTitleLabel {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ideaTitleInput {
+    width: 70%
+}
+
+.ideaDescriptionLabel { 
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+
+.ideaDescriptionInput {
+    margin-top: 5px;
+    align-self: center;
+    max-width: 95%;
+    max-height: 65px;
+    min-height: 65px;
+}
+
+.ideaTimestamp {
+    font-size: 12px;
+    color: #a9a9a9;
+}
+
+.callToActionContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}

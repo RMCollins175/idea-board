@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
+import { useContext } from "react";
+import { IdeaContext } from "../../context/IdeaContext";
 import { Idea } from "../Idea/Idea";
 import styles from "./IdeaList.module.css";
 
 export const IdeaList = () => {
-  const { ideas } = useContext(IdeaContext) as IdeaContextType;
+  const { ideas } = useContext(IdeaContext);
 
   return (
     <div className={styles.ideaListcontainer}>
