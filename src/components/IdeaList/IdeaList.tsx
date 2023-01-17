@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import {
-  IdeaContext,
-  IdeaContextType
-} from "../../utilities/context/IdeaContext";
+import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
 import { Idea } from "../Idea/Idea";
 import styles from "./IdeaList.module.css";
 

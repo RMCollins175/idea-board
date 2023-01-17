@@ -1,7 +1,7 @@
 import { Idea } from "./components/Idea/Idea";
 import { IdeaList } from "./components/IdeaList/IdeaList";
 import "./App.css";
-import { IdeaContextProvider } from "./utilities/context/IdeaContext";
+import { IdeaContextProvider } from "./context/IdeaContext";
 
 const AppContainer = ({ children }: any) => {
   return (

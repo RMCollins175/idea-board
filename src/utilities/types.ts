@@ -5,12 +5,6 @@ export interface IdeaType {
   id: number;
 }
 
-export interface EditableIdeaType extends IdeaType {
-  ideas: IdeaType[];
-  updateIdea: (id: number, title: string, description: string) => void;
-  deleteIdea: (id: number) => void;
-}
-
 export interface IdeaListProps {
   ideas: IdeaType[];
   updateIdea: (id: number, title: string, description: string) => void;

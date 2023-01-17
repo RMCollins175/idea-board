@@ -2,10 +2,7 @@ import { useState } from "react";
 import styles from "./Idea.module.css";
 import { format } from "date-fns";
 import { useContext } from "react";
-import {
-  IdeaContext,
-  IdeaContextType
-} from "../../utilities/context/IdeaContext";
+import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
 
 export interface IdeaProps {
   ideaTitle?: string;
