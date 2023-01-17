@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import { useState } from "react";
 import styles from "./Idea.module.css";
 import { format } from "date-fns";
 import { useContext } from "react";

@@ -1,20 +1,25 @@
-import React from "react";
 import { Idea } from "./components/Idea/Idea";
 import { IdeaList } from "./components/IdeaList/IdeaList";
 import "./App.css";
 import { IdeaContextProvider } from "./utilities/context/IdeaContext";
 
-const App = () => {
+const AppContainer = ({ children }: any) => {
   return (
     <main className="container">
       <h1 className="appTitle">Ideas Board</h1>
-      <div className="ideasContainer">
-        <IdeaContextProvider>
-          <Idea />
-          <IdeaList />
-        </IdeaContextProvider>
-      </div>
+      <div className="ideasContainer">{children}</div>
     </main>
+  );
+};
+
+const App = () => {
+  return (
+    <IdeaContextProvider>
+      <AppContainer>
+        <Idea />
+        <IdeaList />
+      </AppContainer>
+    </IdeaContextProvider>
   );
 };
 
