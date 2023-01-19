@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { IdeaType } from "../utilities/types";
 
 export interface IdeaContextType {
@@ -21,10 +22,11 @@ export const IdeaContext = React.createContext<IdeaContextType>({
 
 export const IdeaContextProvider = ({ children }: any) => {
   const [ideas, setIdeas] = useState<IdeaType[]>([]);
+  const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
 
   useEffect(() => {
-    setIdeas(JSON.parse(localStorage.getItem("ideas") || "[]"));
-  }, []);
+    setIdeas(ideasStorage ? JSON.parse(ideasStorage) : []);
+  }, [ideasStorage]);
 
   const addIdea = (title: string, description: string) => {
     let id = 1;
@@ -36,7 +38,7 @@ export const IdeaContextProvider = ({ children }: any) => {
       { title, description, timestamp: Date.now(), id }
     ];
     setIdeas(newIdeas);
-    localStorage.setItem("ideas", JSON.stringify(newIdeas));
+    setIdeasStorage(JSON.stringify(newIdeas));
   };
 
   const updateIdea = (id: number, title: string, description: string) => {
@@ -47,16 +49,22 @@ export const IdeaContextProvider = ({ children }: any) => {
       return idea;
     });
     setIdeas(updatedIdeas);
-    localStorage.setItem("ideas", JSON.stringify(updatedIdeas));
+    setIdeasStorage(JSON.stringify(updatedIdeas));
   };
 
   const deleteIdea = (id: number) => {
     const filteredIdeas = ideas.filter((idea) => idea.id !== id);
     setIdeas(filteredIdeas);
-    localStorage.setItem("ideas", JSON.stringify(filteredIdeas));
+    setIdeasStorage(JSON.stringify(filteredIdeas));
   };
 
+  // const IdeaContextValue = useMemo(
+  //   () => ({ ideas, addIdea, updateIdea, deleteIdea }),
+  //   [addIdea, deleteIdea, ideas, updateIdea]
+  // );
+
   return (
+    // <IdeaContext.Provider value={IdeaContextValue}>
     <IdeaContext.Provider value={{ ideas, addIdea, updateIdea, deleteIdea }}>
       {children}
     </IdeaContext.Provider>
