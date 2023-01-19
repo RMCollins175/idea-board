@@ -6,7 +6,7 @@ import { IdeaContext } from "../../context/IdeaContext";
 export interface CardProps {
   ideaTitle?: string;
   ideaDescription?: string;
-  id?: number;
+  id?: string;
   timestamp?: number;
 }
 

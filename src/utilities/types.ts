@@ -2,11 +2,11 @@ export interface IdeaType {
   title: string;
   description: string;
   timestamp: number;
-  id: number;
+  id: string;
 }
 
 export interface CardListProps {
   ideas: IdeaType[];
-  updateIdea: (id: number, title: string, description: string) => void;
-  deleteIdea: (id: number) => void;
+  updateIdea: (id: string, title: string, description: string) => void;
+  deleteIdea: (id: string) => void;
 }
