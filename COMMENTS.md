@@ -18,3 +18,8 @@
 ### How to view this project
 
 https://idea-board-one.vercel.app/
+
+### Further Comments / Reminders
+
+- useMemo in IdeaContext
+- passing idea object to Card instead of individual props e.g. title, description, etc
