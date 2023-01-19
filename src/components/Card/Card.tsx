@@ -28,7 +28,7 @@ export const Card = ({
     if (id) {
       updateIdea(id, inputTitle, inputDescription);
     } else {
-      if (addIdea) addIdea(inputTitle, inputDescription);
+      addIdea(inputTitle, inputDescription);
       setInputTitle("");
       setInputDescription("");
     }
