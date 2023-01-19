@@ -4,17 +4,15 @@ import { format } from "date-fns";
 import { IdeaContext } from "../../context/IdeaContext";
 
 export interface CardProps {
-  // idea?: EditableIdeaType[];
   idea?: any;
 }
 
 export const Card = ({ idea }: CardProps) => {
-  console.log("🚀 ~ file: Card.tsx:12 ~ Card ~ idea", idea);
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
   const [inputTitle, setInputTitle] = useState(idea?.ideaTitle || "");
   const [inputDescription, setInputDescription] = useState(
-    idea.ideaDescription || ""
+    idea?.ideaDescription || ""
   );
 
   const handleSubmission = (event: any) => {

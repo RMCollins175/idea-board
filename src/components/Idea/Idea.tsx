@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styles from "./Idea.module.css";
 import { format } from "date-fns";
-import { useContext } from "react";
-import { IdeaContext, IdeaContextType } from "../../context/IdeaContext";
+import { IdeaContext } from "../../context/IdeaContext";
 
 export interface IdeaProps {
   ideaTitle?: string;
@@ -17,9 +16,7 @@ export const Idea = ({
   id,
   timestamp
 }: IdeaProps) => {
-  const { addIdea, updateIdea, deleteIdea } = useContext(
-    IdeaContext
-  ) as IdeaContextType;
+  const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
   const [inputTitle, setInputTitle] = useState(ideaTitle || "");
   const [inputDescription, setInputDescription] = useState(
