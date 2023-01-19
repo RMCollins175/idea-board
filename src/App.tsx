@@ -1,7 +1,7 @@
-import { Idea } from "./components/Idea/Idea";
-import { IdeaList } from "./components/IdeaList/IdeaList";
+import { CardList } from "./components/CardList/CardList";
 import "./App.css";
 import { IdeaContextProvider } from "./context/IdeaContext";
+import { Card } from "./components/Card/Card";
 
 const AppContainer = ({ children }: any) => {
   return (
@@ -16,8 +16,8 @@ const App = () => {
   return (
     <IdeaContextProvider>
       <AppContainer>
-        <Idea />
-        <IdeaList />
+        <Card />
+        <CardList />
       </AppContainer>
     </IdeaContextProvider>
   );

@@ -5,7 +5,7 @@ export interface IdeaType {
   id: number;
 }
 
-export interface IdeaListProps {
+export interface CardListProps {
   ideas: IdeaType[];
   updateIdea: (id: number, title: string, description: string) => void;
   deleteIdea: (id: number) => void;

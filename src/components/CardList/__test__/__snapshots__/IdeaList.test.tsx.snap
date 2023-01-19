@@ -2,7 +2,7 @@
 
 exports[`Idea component tests should render a list of Ideas 1`] = `
 <div
-  className="ideaListcontainer"
+  className="CardListcontainer"
 >
   <div
     className="ideaContainer"

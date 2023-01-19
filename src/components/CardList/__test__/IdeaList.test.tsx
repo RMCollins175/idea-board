@@ -1,9 +1,9 @@
 import renderer from "react-test-renderer";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { IdeaList } from "../IdeaList";
+import { CardList } from "../CardList";
 
-const IdeaListProps = {
+const CardListProps = {
   ideas: [
     {
       id: 1,
@@ -23,9 +23,9 @@ const IdeaListProps = {
 // describe("Idea component tests", () => {
 //   it("should render a list of Ideas", () => {
 //     // snapshot for a list of ideas of length 2
-//     const IdeaListComponent = renderer
-//       .create(<IdeaList {...IdeaListProps} />)
+//     const CardListComponent = renderer
+//       .create(<CardList {...CardListProps} />)
 //       .toJSON();
-//     expect(IdeaListComponent).toMatchSnapshot();
+//     expect(CardListComponent).toMatchSnapshot();
 //   });
 // });

@@ -4,21 +4,29 @@ import { format } from "date-fns";
 import { IdeaContext } from "../../context/IdeaContext";
 
 export interface CardProps {
-  idea?: any;
+  ideaTitle?: string;
+  ideaDescription?: string;
+  id?: number;
+  timestamp?: number;
 }
 
-export const Card = ({ idea }: CardProps) => {
+export const Card = ({
+  ideaTitle,
+  ideaDescription,
+  id,
+  timestamp
+}: CardProps) => {
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
-  const [inputTitle, setInputTitle] = useState(idea?.ideaTitle || "");
+  const [inputTitle, setInputTitle] = useState(ideaTitle || "");
   const [inputDescription, setInputDescription] = useState(
-    idea?.ideaDescription || ""
+    ideaDescription || ""
   );
 
   const handleSubmission = (event: any) => {
     event.preventDefault();
-    if (idea.id) {
-      updateIdea(idea.id, inputTitle, inputDescription);
+    if (id) {
+      updateIdea(id, inputTitle, inputDescription);
     } else {
       if (addIdea) addIdea(inputTitle, inputDescription);
       setInputTitle("");
@@ -27,8 +35,8 @@ export const Card = ({ idea }: CardProps) => {
   };
 
   const handleDelete = () => {
-    if (idea.id) {
-      deleteIdea(idea.id);
+    if (id) {
+      deleteIdea(id);
     }
   };
 
@@ -67,11 +75,10 @@ export const Card = ({ idea }: CardProps) => {
             value={inputDescription}
           />
         </label>
-        {idea.id && (
+        {id && (
           <p className={styles.ideaTimestamp}>
             {`${
-              idea.timestamp &&
-              format(new Date(idea.timestamp), "yyyy-MM-dd - HH:mm:ss")
+              timestamp && format(new Date(timestamp), "yyyy-MM-dd - HH:mm:ss")
             }`}
           </p>
         )}
@@ -81,7 +88,7 @@ export const Card = ({ idea }: CardProps) => {
             data-testid="IdeaForm.buttonAdd"
             disabled={!inputTitle || !inputTitle.trim()}
           >
-            {idea.id ? `Update` : `Add`}
+            {id ? `Update` : `Add`}
           </button>
           <button
             className="ideaFormButton"
@@ -93,7 +100,7 @@ export const Card = ({ idea }: CardProps) => {
           >
             Reset
           </button>
-          {idea.id && (
+          {id && (
             <button data-testid="IdeaForm.buttonDelete" onClick={handleDelete}>
               Delete
             </button>
