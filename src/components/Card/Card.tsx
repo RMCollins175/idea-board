@@ -34,12 +34,6 @@ export const Card = ({
     }
   };
 
-  const handleDelete = () => {
-    if (id) {
-      deleteIdea(id);
-    }
-  };
-
   const handleDescriptionChange = (event: any) => {
     if (event.target.value.length < 140) {
       setInputDescription(event.target.value);
@@ -101,7 +95,10 @@ export const Card = ({
             Reset
           </button>
           {id && (
-            <button data-testid="IdeaForm.buttonDelete" onClick={handleDelete}>
+            <button
+              data-testid="IdeaForm.buttonDelete"
+              onClick={() => deleteIdea(id)}
+            >
               Delete
             </button>
           )}

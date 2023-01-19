@@ -23,3 +23,9 @@ https://idea-board-one.vercel.app/
 
 - useMemo in IdeaContext
 - passing idea object to Card instead of individual props e.g. title, description, etc
+
+### Branch information
+
+-master: original
+-main: refactor context, uuid and localstorage
+-development:

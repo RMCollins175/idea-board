@@ -5,7 +5,6 @@ import styles from "./CardList.module.css";
 
 export const CardList = () => {
   const { ideas } = useContext(IdeaContext);
-  console.log("🚀 ~ file: CardList.tsx:9 ~ CardList ~ ideas", ideas);
 
   return (
     <div className={styles.CardListcontainer}>
