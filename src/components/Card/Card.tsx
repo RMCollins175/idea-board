@@ -29,8 +29,7 @@ export const Card = ({
       updateIdea(id, inputTitle, inputDescription);
     } else {
       addIdea(inputTitle, inputDescription);
-      setInputTitle("");
-      setInputDescription("");
+      resetForms();
     }
   };
 
@@ -38,6 +37,11 @@ export const Card = ({
     if (event.target.value.length < 140) {
       setInputDescription(event.target.value);
     }
+  };
+
+  const resetForms = () => {
+    setInputTitle("");
+    setInputDescription("");
   };
 
   const isAnIdea = !!id;
