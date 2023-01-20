@@ -40,6 +40,8 @@ export const Card = ({
     }
   };
 
+  const isAnIdea = !!id;
+
   return (
     <div className={styles.ideaContainer}>
       <form onSubmit={handleSubmission} className={styles.ideaForm}>
@@ -69,7 +71,7 @@ export const Card = ({
             value={inputDescription}
           />
         </label>
-        {id && (
+        {isAnIdea && (
           <p className={styles.ideaTimestamp}>
             {`${
               timestamp && format(new Date(timestamp), "yyyy-MM-dd - HH:mm:ss")
@@ -94,7 +96,7 @@ export const Card = ({
           >
             Reset
           </button>
-          {id && (
+          {isAnIdea && (
             <button
               data-testid="IdeaForm.buttonDelete"
               onClick={() => deleteIdea(id)}
