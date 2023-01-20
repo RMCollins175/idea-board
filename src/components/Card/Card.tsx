@@ -41,9 +41,8 @@ export const Card = ({
     if (id) {
       updateIdea(id, inputTitle, inputDescription);
     } else {
-      console.log("HERE");
       addIdea(data.title, data.description);
-      // resetForms();
+      reset();
     }
   };
 
@@ -54,9 +53,6 @@ export const Card = ({
   };
 
   const isAnIdea = !!id;
-
-  // console.log(watch("title"));
-  // console.log(watch("description"));
 
   return (
     <div className={styles.ideaContainer}>
@@ -70,10 +66,9 @@ export const Card = ({
             placeholder="Title"
             required
             className={styles.ideaTitleInput}
-            value={inputTitle}
+            value={inputTitle ? inputTitle : undefined}
           />
         </label>
-        {errors.title && <p>This field is required</p>}
         <label
           className={styles.ideaDescriptionLabel}
           data-testid="IdeaForm.description"
@@ -83,7 +78,7 @@ export const Card = ({
             placeholder="Description"
             maxLength={140}
             className={styles.ideaDescriptionInput}
-            value={inputDescription}
+            value={inputDescription ? inputDescription : undefined}
           />
         </label>
         {isAnIdea && (
@@ -94,15 +89,10 @@ export const Card = ({
           </p>
         )}
         <div className={styles.callToActionContainer}>
-          {/* <button
-            type="submit"
-            data-testid="IdeaForm.buttonAdd"
-            // disabled={!inputTitle || !inputTitle.trim()}
-          >
+          <button type="submit" data-testid="IdeaForm.buttonAdd">
             {id ? `Update` : `Add`}
-          </button> */}
+          </button>
 
-          <input type="submit" />
           <button type="button" onClick={() => reset()}>
             Reset
           </button>
