@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import styles from "./Card.module.css";
 import { format } from "date-fns";
 import { IdeaContext } from "../../context/IdeaContext";
+import { useForm } from "react-hook-form";
 
 export interface CardProps {
   ideaTitle?: string;
@@ -18,18 +19,31 @@ export const Card = ({
 }: CardProps) => {
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      title: "",
+      description: ""
+    }
+  });
+
   const [inputTitle, setInputTitle] = useState(ideaTitle || "");
   const [inputDescription, setInputDescription] = useState(
     ideaDescription || ""
   );
 
-  const handleSubmission = (event: any) => {
-    event.preventDefault();
+  const handleSubmission = (data: any) => {
     if (id) {
       updateIdea(id, inputTitle, inputDescription);
     } else {
-      addIdea(inputTitle, inputDescription);
-      resetForms();
+      console.log("HERE");
+      addIdea(data.title, data.description);
+      // resetForms();
     }
   };
 
@@ -39,39 +53,36 @@ export const Card = ({
     }
   };
 
-  const resetForms = () => {
-    setInputTitle("");
-    setInputDescription("");
-  };
-
   const isAnIdea = !!id;
+
+  // console.log(watch("title"));
+  // console.log(watch("description"));
 
   return (
     <div className={styles.ideaContainer}>
-      <form onSubmit={handleSubmission} className={styles.ideaForm}>
+      <form
+        onSubmit={handleSubmit((data) => handleSubmission(data))}
+        className={styles.ideaForm}
+      >
         <label className={styles.ideaTitleLabel}>
           <input
-            data-testid="IdeaForm.title"
-            type="text"
-            name="title"
-            id="title"
-            className={styles.ideaTitleInput}
+            {...register("title")}
             placeholder="Title"
-            onChange={(event) => setInputTitle(event.target.value)}
-            value={inputTitle}
             required
+            className={styles.ideaTitleInput}
+            value={inputTitle}
           />
         </label>
+        {errors.title && <p>This field is required</p>}
         <label
           className={styles.ideaDescriptionLabel}
           data-testid="IdeaForm.description"
         >
           <textarea
-            name="description"
-            className={styles.ideaDescriptionInput}
-            maxLength={140}
+            {...register("description")}
             placeholder="Description"
-            onChange={handleDescriptionChange}
+            maxLength={140}
+            className={styles.ideaDescriptionInput}
             value={inputDescription}
           />
         </label>
@@ -83,21 +94,16 @@ export const Card = ({
           </p>
         )}
         <div className={styles.callToActionContainer}>
-          <button
+          {/* <button
             type="submit"
             data-testid="IdeaForm.buttonAdd"
-            disabled={!inputTitle || !inputTitle.trim()}
+            // disabled={!inputTitle || !inputTitle.trim()}
           >
             {id ? `Update` : `Add`}
-          </button>
-          <button
-            className="ideaFormButton"
-            data-testid="IdeaForm.buttonReset"
-            onClick={() => {
-              setInputTitle("");
-              setInputDescription("");
-            }}
-          >
+          </button> */}
+
+          <input type="submit" />
+          <button type="button" onClick={() => reset()}>
             Reset
           </button>
           {isAnIdea && (
