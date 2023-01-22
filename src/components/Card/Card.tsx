@@ -22,33 +22,21 @@ export const Card = ({
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors }
   } = useForm({
     defaultValues: {
-      title: "",
-      description: ""
+      title: ideaTitle || "",
+      description: ideaDescription || ""
     }
   });
 
-  const [inputTitle, setInputTitle] = useState(ideaTitle || "");
-  const [inputDescription, setInputDescription] = useState(
-    ideaDescription || ""
-  );
-
   const handleSubmission = (data: any) => {
     if (id) {
-      updateIdea(id, inputTitle, inputDescription);
+      updateIdea(id, data.title, data.description);
     } else {
       addIdea(data.title, data.description);
       reset();
-    }
-  };
-
-  const handleDescriptionChange = (event: any) => {
-    if (event.target.value.length < 140) {
-      setInputDescription(event.target.value);
     }
   };
 
@@ -66,7 +54,7 @@ export const Card = ({
             placeholder="Title"
             required
             className={styles.ideaTitleInput}
-            value={inputTitle ? inputTitle : undefined}
+            defaultValue={ideaTitle}
           />
         </label>
         <label
@@ -78,7 +66,7 @@ export const Card = ({
             placeholder="Description"
             maxLength={140}
             className={styles.ideaDescriptionInput}
-            value={inputDescription ? inputDescription : undefined}
+            defaultValue={ideaDescription}
           />
         </label>
         {isAnIdea && (
