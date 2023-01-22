@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import styles from "./Card.module.css";
 import { format } from "date-fns";
 import { IdeaContext } from "../../context/IdeaContext";
@@ -57,10 +57,7 @@ export const Card = ({
             defaultValue={ideaTitle}
           />
         </label>
-        <label
-          className={styles.ideaDescriptionLabel}
-          data-testid="IdeaForm.description"
-        >
+        <label className={styles.ideaDescriptionLabel}>
           <textarea
             {...register("description")}
             placeholder="Description"
@@ -77,21 +74,12 @@ export const Card = ({
           </p>
         )}
         <div className={styles.callToActionContainer}>
-          <button type="submit" data-testid="IdeaForm.buttonAdd">
-            {id ? `Update` : `Add`}
-          </button>
+          <button type="submit">{id ? `Update` : `Add`}</button>
 
           <button type="button" onClick={() => reset()}>
             Reset
           </button>
-          {isAnIdea && (
-            <button
-              data-testid="IdeaForm.buttonDelete"
-              onClick={() => deleteIdea(id)}
-            >
-              Delete
-            </button>
-          )}
+          {isAnIdea && <button onClick={() => deleteIdea(id)}>Delete</button>}
         </div>
       </form>
     </div>
