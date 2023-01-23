@@ -11,6 +11,7 @@ export interface CardProps {
 
 export const Card = ({ idea }: CardProps) => {
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
+  // const { title, description, id, timestamp } = idea;
 
   const {
     register,
