@@ -1,11 +1,12 @@
-.CardListcontainer {
+.cardlistContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .ideaContainer {
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 
 @media (max-width: 500px) {

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { IdeaContext } from "../../context/IdeaContext";
 import { IdeaType } from "../../utilities/types";
 import { Card } from "../Card/Card";
@@ -8,11 +8,11 @@ export const CardList = () => {
   const { ideas } = useContext(IdeaContext);
 
   return (
-    <div className={styles.CardListcontainer}>
+    <div className={styles.cardlistContainer}>
       {ideas.map((idea: IdeaType) => (
-        <div className={styles.ideaContainer} key={idea.id}>
+        <React.Fragment key={idea.id}>
           <Card idea={idea} />
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );
