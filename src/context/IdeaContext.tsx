@@ -23,7 +23,7 @@ export const IdeaContext = React.createContext<IdeaContextType>({
 
 export const IdeaContextProvider = ({ children }: any) => {
   const [ideas, setIdeas] = useState<IdeaType[]>([]);
-  const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "");
+  const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
 
   useEffect(() => {
     setIdeas(ideasStorage ? JSON.parse(ideasStorage) : "");
