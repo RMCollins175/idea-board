@@ -7,9 +7,11 @@ import { IdeaType } from "../../utilities/types";
 
 export interface CardProps {
   idea?: IdeaType;
+  // key?: React.Key;
 }
 
-export const Card = ({ idea }: CardProps) => {
+export const Card = (props: CardProps) => {
+  const { idea } = props;
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
   const {

@@ -10,9 +10,7 @@ export const CardList = () => {
   return (
     <div className={styles.cardlistContainer}>
       {ideas.map((idea: IdeaType) => (
-        <React.Fragment key={idea.id}>
-          <Card idea={idea} />
-        </React.Fragment>
+        <Card idea={idea} key={idea.id} />
       ))}
     </div>
   );
