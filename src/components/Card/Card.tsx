@@ -7,7 +7,6 @@ import { IdeaType } from "../../utilities/types";
 
 export interface CardProps {
   idea?: IdeaType;
-  // key?: React.Key;
 }
 
 export const Card = (props: CardProps) => {
@@ -28,7 +27,6 @@ export const Card = (props: CardProps) => {
 
   const handleSubmission = (data: any) => {
     if (idea?.id) {
-      // updateIdea(idea?.id, data.title, data.description);
       dispatch({
         type: "UPDATE_IDEA",
         payload: {
@@ -45,8 +43,6 @@ export const Card = (props: CardProps) => {
           description: data.description
         }
       });
-
-      // addIdea(data.title, data.description);
       reset();
     }
   };
@@ -59,8 +55,6 @@ export const Card = (props: CardProps) => {
           id: idea.id
         }
       });
-
-      // deleteIdea(idea.id);
     }
   };
 

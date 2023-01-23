@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { IdeaType } from "../utilities/types";
 import { v4 as uuidv4 } from "uuid";
@@ -9,9 +9,6 @@ export interface IdeaContextType {
   id?: string;
   timestamp?: number;
   ideas: IdeaType[];
-  // addIdea: (title: string, description: string) => void;
-  // updateIdea: (id: string, title: string, description: string) => void;
-  // deleteIdea: (id: string) => void;
   dispatch: React.Dispatch<any>;
 }
 
