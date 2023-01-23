@@ -26,7 +26,9 @@ export const IdeaContextProvider = ({ children }: any) => {
   const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
 
   useEffect(() => {
-    setIdeas(ideasStorage ? JSON.parse(ideasStorage) : "");
+    if (ideasStorage !== "[]") {
+      setIdeas(JSON.parse(ideasStorage));
+    }
   }, [ideasStorage]);
 
   const addIdea = (title: string, description: string) => {
