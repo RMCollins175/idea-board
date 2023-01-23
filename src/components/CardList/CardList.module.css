@@ -5,17 +5,8 @@
   flex-wrap: wrap;
 }
 
-.ideaContainer {
-  /* padding-left: 10px; */
-}
-
-@media (max-width: 500px) {
-  .CardListcontainer {
+@media (max-width: 630px) {
+  .cardlistContainer {
     flex-direction: column;
-  }
-
-  .ideaContainer {
-    padding-top: 10px;
-    padding-left: 0px;
   }
 }
