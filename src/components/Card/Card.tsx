@@ -3,20 +3,13 @@ import styles from "./Card.module.css";
 import { format } from "date-fns";
 import { IdeaContext } from "../../context/IdeaContext";
 import { useForm } from "react-hook-form";
+import { IdeaType } from "../../utilities/types";
 
 export interface CardProps {
-  ideaTitle?: string;
-  ideaDescription?: string;
-  id?: string;
-  timestamp?: number;
+  idea?: IdeaType;
 }
 
-export const Card = ({
-  ideaTitle,
-  ideaDescription,
-  id,
-  timestamp
-}: CardProps) => {
+export const Card = ({ idea }: CardProps) => {
   const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
 
   const {
@@ -26,21 +19,27 @@ export const Card = ({
     formState: { errors }
   } = useForm({
     defaultValues: {
-      title: ideaTitle || "",
-      description: ideaDescription || ""
+      title: idea ? idea.title : "",
+      description: idea ? idea.description : ""
     }
   });
 
   const handleSubmission = (data: any) => {
-    if (id) {
-      updateIdea(id, data.title, data.description);
+    if (idea?.id) {
+      updateIdea(idea?.id, data.title, data.description);
     } else {
       addIdea(data.title, data.description);
       reset();
     }
   };
 
-  const isAnIdea = !!id;
+  const handleDelete = () => {
+    if (idea?.id) {
+      deleteIdea(idea.id);
+    }
+  };
+
+  const isAnIdea = !!idea?.id;
 
   return (
     <div className={styles.ideaContainer}>
@@ -54,7 +53,7 @@ export const Card = ({
             placeholder="Title"
             required
             className={styles.ideaTitleInput}
-            defaultValue={ideaTitle}
+            defaultValue={idea?.title}
           />
         </label>
         <label className={styles.ideaDescriptionLabel}>
@@ -63,23 +62,24 @@ export const Card = ({
             placeholder="Description"
             maxLength={140}
             className={styles.ideaDescriptionInput}
-            defaultValue={ideaDescription}
+            defaultValue={idea?.description}
           />
         </label>
         {isAnIdea && (
           <p className={styles.ideaTimestamp}>
             {`${
-              timestamp && format(new Date(timestamp), "yyyy-MM-dd - HH:mm:ss")
+              idea?.timestamp &&
+              format(new Date(idea?.timestamp), "yyyy-MM-dd - HH:mm:ss")
             }`}
           </p>
         )}
         <div className={styles.callToActionContainer}>
-          <button type="submit">{id ? `Update` : `Add`}</button>
+          <button type="submit">{idea?.id ? `Update` : `Add`}</button>
 
           <button type="button" onClick={() => reset()}>
             Reset
           </button>
-          {isAnIdea && <button onClick={() => deleteIdea(id)}>Delete</button>}
+          {isAnIdea && <button onClick={handleDelete}>Delete</button>}
         </div>
       </form>
     </div>
