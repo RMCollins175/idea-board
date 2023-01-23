@@ -12,7 +12,7 @@ export interface CardProps {
 
 export const Card = (props: CardProps) => {
   const { idea } = props;
-  const { addIdea, updateIdea, deleteIdea } = useContext(IdeaContext);
+  const { dispatch } = useContext(IdeaContext);
 
   const {
     register,
@@ -28,16 +28,39 @@ export const Card = (props: CardProps) => {
 
   const handleSubmission = (data: any) => {
     if (idea?.id) {
-      updateIdea(idea?.id, data.title, data.description);
+      // updateIdea(idea?.id, data.title, data.description);
+      dispatch({
+        type: "UPDATE_IDEA",
+        payload: {
+          id: idea.id,
+          title: data.title,
+          description: data.description
+        }
+      });
     } else {
-      addIdea(data.title, data.description);
+      dispatch({
+        type: "ADD_IDEA",
+        payload: {
+          title: data.title,
+          description: data.description
+        }
+      });
+
+      // addIdea(data.title, data.description);
       reset();
     }
   };
 
   const handleDelete = () => {
     if (idea?.id) {
-      deleteIdea(idea.id);
+      dispatch({
+        type: "DELETE_IDEA",
+        payload: {
+          id: idea.id
+        }
+      });
+
+      // deleteIdea(idea.id);
     }
   };
 
