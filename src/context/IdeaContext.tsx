@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { IdeaType } from "../utilities/types";
 import { v4 as uuidv4 } from "uuid";
@@ -55,13 +55,7 @@ export const IdeaContextProvider = ({ children }: any) => {
     setIdeasStorage(JSON.stringify(filteredIdeas));
   };
 
-  // const IdeaContextValue = useMemo(
-  //   () => ({ ideas, addIdea, updateIdea, deleteIdea }),
-  //   [addIdea, deleteIdea, ideas, updateIdea]
-  // );
-
   return (
-    // <IdeaContext.Provider value={IdeaContextValue}>
     <IdeaContext.Provider value={{ ideas, addIdea, updateIdea, deleteIdea }}>
       {children}
     </IdeaContext.Provider>
