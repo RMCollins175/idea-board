@@ -31,13 +31,17 @@ export const IdeaContextProvider = ({ children }: any) => {
     }
   }, [ideasStorage]);
 
+  const setIdeasAndSaveToStorage = (ideas: IdeaType[]) => {
+    setIdeas(ideas);
+    setIdeasStorage(JSON.stringify(ideas));
+  };
+
   const addIdea = (title: string, description: string) => {
     const newIdeas = [
       ...ideas,
       { title, description, timestamp: Date.now(), id: uuidv4() }
     ];
-    setIdeas(newIdeas);
-    setIdeasStorage(JSON.stringify(newIdeas));
+    setIdeasAndSaveToStorage(newIdeas);
   };
 
   const updateIdea = (id: string, title: string, description: string) => {
@@ -47,14 +51,12 @@ export const IdeaContextProvider = ({ children }: any) => {
       }
       return idea;
     });
-    setIdeas(updatedIdeas);
-    setIdeasStorage(JSON.stringify(updatedIdeas));
+    setIdeasAndSaveToStorage(updatedIdeas);
   };
 
   const deleteIdea = (id: string) => {
     const filteredIdeas = ideas.filter((idea) => idea.id !== id);
-    setIdeas(filteredIdeas);
-    setIdeasStorage(JSON.stringify(filteredIdeas));
+    setIdeasAndSaveToStorage(filteredIdeas);
   };
 
   return (
