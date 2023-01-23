@@ -23,24 +23,37 @@ export const IdeaContext = React.createContext<IdeaContextType>({
 const ACTIONS = {
   ADD_IDEA: "ADD_IDEA",
   UPDATE_IDEA: "UPDATE_IDEA",
-  DELETE_IDEA: "DELETE_IDEA"
+  DELETE_IDEA: "DELETE_IDEA",
+  SET_IDEAS: "SET_IDEAS"
 };
 
 export const IdeaContextProvider = ({ children }: any) => {
+  const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
+
+  useEffect(() => {
+    if (ideasStorage && typeof ideasStorage === "string") {
+      dispatch({
+        type: "SET_IDEAS",
+        payload: JSON.parse(ideasStorage)
+      });
+    }
+  }, [ideasStorage]);
+
   const reducer = (state: IdeaType[], action: any) => {
     switch (action.type) {
+      case ACTIONS.SET_IDEAS:
+        return action.payload;
       case ACTIONS.ADD_IDEA:
-        return [
-          ...state,
-          {
-            title: action.payload.title,
-            description: action.payload.description,
-            timestamp: Date.now(),
-            id: uuidv4()
-          }
-        ];
+        const newIdea = {
+          id: uuidv4(),
+          title: action.payload.title,
+          description: action.payload.description,
+          timestamp: Date.now()
+        };
+        setIdeasStorage(JSON.stringify([...state, newIdea]));
+        return [...state, newIdea];
       case ACTIONS.UPDATE_IDEA:
-        return state.map((idea) => {
+        const updatedIdeas = state.map((idea) => {
           if (idea.id === action.payload.id) {
             return {
               ...idea,
@@ -51,49 +64,20 @@ export const IdeaContextProvider = ({ children }: any) => {
           }
           return idea;
         });
+        setIdeasStorage(JSON.stringify(updatedIdeas));
+        return updatedIdeas;
       case ACTIONS.DELETE_IDEA:
-        return state.filter((idea) => idea.id !== action.payload.id);
+        const filteredIdeas = state.filter(
+          (idea) => idea.id !== action.payload.id
+        );
+        setIdeasStorage(JSON.stringify(filteredIdeas));
+        return filteredIdeas;
       default:
         return state;
     }
   };
 
   const [ideas, dispatch] = useReducer(reducer, []);
-  // const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
-
-  // useEffect(() => {
-  //   if (ideasStorage && typeof ideasStorage === "string") {
-  //     setIdeas(JSON.parse(ideasStorage));
-  //   }
-  // }, [ideasStorage]);
-
-  // const setIdeasAndSaveToStorage = (ideas: IdeaType[]) => {
-  //   setIdeas(ideas);
-  //   // setIdeasStorage(JSON.stringify(ideas));
-  // };
-
-  // const addIdea = (title: string, description: string) => {
-  //   const newIdeas = [
-  //     ...ideas,
-  //     { title, description, timestamp: Date.now(), id: uuidv4() }
-  //   ];
-  //   setIdeasAndSaveToStorage(newIdeas);
-  // };
-
-  // const updateIdea = (id: string, title: string, description: string) => {
-  //   const updatedIdeas = ideas.map((idea) => {
-  //     if (idea.id === id) {
-  //       return { ...idea, title, description, timestamp: Date.now() };
-  //     }
-  //     return idea;
-  //   });
-  //   setIdeasAndSaveToStorage(updatedIdeas);
-  // };
-
-  // const deleteIdea = (id: string) => {
-  //   const filteredIdeas = ideas.filter((idea) => idea.id !== id);
-  //   setIdeasAndSaveToStorage(filteredIdeas);
-  // };
 
   return (
     <IdeaContext.Provider value={{ ideas, dispatch }}>
