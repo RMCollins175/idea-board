@@ -73,6 +73,7 @@ export const Card = (props: CardProps) => {
             required
             className={styles.ideaTitleInput}
             defaultValue={idea?.title}
+            aria-label={idea?.title}
           />
         </label>
         <label className={styles.ideaDescriptionLabel}>
@@ -82,6 +83,7 @@ export const Card = (props: CardProps) => {
             maxLength={140}
             className={styles.ideaDescriptionInput}
             defaultValue={idea?.description}
+            aria-label={idea?.description}
           />
         </label>
         {isAnIdea && (

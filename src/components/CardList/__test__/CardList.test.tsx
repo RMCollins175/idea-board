@@ -21,16 +21,16 @@ describe("CardList", () => {
     }
   ];
 
-  // it("should render correctly", () => {
-  //   render(
-  //     <IdeaContext.Provider value={{ dispatch, ideas }}>
-  //       <CardList />
-  //     </IdeaContext.Provider>
-  //   );
+  it("should render correctly", () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <CardList />
+      </IdeaContext.Provider>
+    );
 
-  //   expect(screen.getByText("First idea")).toBeInTheDocument();
-  //   expect(screen.getByText("Second idea")).toBeInTheDocument();
-  // });
+    expect(screen.getByLabelText("First idea")).toBeInTheDocument();
+    expect(screen.getByLabelText("Second idea")).toBeInTheDocument();
+  });
 
   it("should correctly map over the ideas in the context", () => {
     render(
