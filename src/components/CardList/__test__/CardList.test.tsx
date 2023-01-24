@@ -39,8 +39,8 @@ describe("CardList", () => {
       </IdeaContext.Provider>
     );
 
-    expect(screen.getAllByRole("textbox").length).toBe(4);
-    // expect(screen.getAllByLabelText("First idea").length).toBe(1);
+    // 2 title intputs and 2 description inputs = 4 in total
+    expect(screen.getAllByRole("textbox")).toHaveLength(4);
   });
 
   it("should correctly pass the idea prop to each Card component", () => {

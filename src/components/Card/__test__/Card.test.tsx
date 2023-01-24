@@ -1,8 +1,6 @@
 import { Card } from "../Card";
 import renderer from "react-test-renderer";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { format } from "date-fns";
-import { act } from "react-dom/test-utils";
 import { IdeaType } from "../../../utilities/types";
 import { IdeaContext } from "../../../context/IdeaContext";
 
