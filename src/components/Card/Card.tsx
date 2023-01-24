@@ -68,6 +68,7 @@ export const Card = (props: CardProps) => {
       >
         <label className={styles.ideaTitleLabel}>
           <input
+            id={`title-${idea?.id}`}
             {...register("title")}
             placeholder="Title"
             required
@@ -78,6 +79,7 @@ export const Card = (props: CardProps) => {
         </label>
         <label className={styles.ideaDescriptionLabel}>
           <textarea
+            id={`description-${idea?.id}`}
             {...register("description")}
             placeholder="Description"
             maxLength={140}
@@ -87,7 +89,7 @@ export const Card = (props: CardProps) => {
           />
         </label>
         {isAnIdea && (
-          <p className={styles.ideaTimestamp}>
+          <p className={styles.ideaTimestamp} aria-label={"Timestamp"}>
             {`${
               idea?.timestamp &&
               format(new Date(idea?.timestamp), "yyyy-MM-dd - HH:mm:ss")
@@ -95,12 +97,21 @@ export const Card = (props: CardProps) => {
           </p>
         )}
         <div className={styles.callToActionContainer}>
-          <button type="submit">{idea?.id ? `Update` : `Add`}</button>
+          <button
+            type="submit"
+            aria-label={idea?.id ? `Update Button` : `Add Button`}
+          >
+            {idea?.id ? `Update` : `Add`}
+          </button>
 
           <button type="button" onClick={() => reset()}>
             Reset
           </button>
-          {isAnIdea && <button onClick={handleDelete}>Delete</button>}
+          {isAnIdea && (
+            <button onClick={handleDelete} aria-label={"Delete Button"}>
+              Delete
+            </button>
+          )}
         </div>
       </form>
     </div>

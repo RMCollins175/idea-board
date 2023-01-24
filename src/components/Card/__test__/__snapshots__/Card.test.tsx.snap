@@ -13,6 +13,7 @@ exports[`Idea component tests should render a default Idea component form 1`] = 
     >
       <input
         className="ideaTitleInput"
+        id="title-undefined"
         name="title"
         onBlur={[Function]}
         onChange={[Function]}
@@ -25,6 +26,7 @@ exports[`Idea component tests should render a default Idea component form 1`] = 
     >
       <textarea
         className="ideaDescriptionInput"
+        id="description-undefined"
         maxLength={140}
         name="description"
         onBlur={[Function]}
@@ -36,6 +38,7 @@ exports[`Idea component tests should render a default Idea component form 1`] = 
       className="callToActionContainer"
     >
       <button
+        aria-label="Add Button"
         type="submit"
       >
         Add
