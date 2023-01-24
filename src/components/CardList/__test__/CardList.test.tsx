@@ -1,31 +1,71 @@
-import renderer from "react-test-renderer";
-import { fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { IdeaContext } from "../../../context/IdeaContext";
 import { CardList } from "../CardList";
+import { IdeaType } from "../../../utilities/types";
 
-const CardListProps = {
-  ideas: [
+describe("CardList", () => {
+  const dispatch = jest.fn();
+  const ideas: IdeaType[] = [
     {
-      id: 1,
-      title: "Title 1",
-      description: "Description 1",
-      timestamp: 123456789
+      id: "1",
+      title: "First idea",
+      description: "This is the first idea",
+      timestamp: Date.now()
     },
     {
-      id: 2,
-      title: "Title 2",
-      description: "Description 2",
-      timestamp: 123456789
+      id: "2",
+      title: "Second idea",
+      description: "This is the second idea",
+      timestamp: Date.now()
     }
-  ]
-};
+  ];
 
-// describe("Idea component tests", () => {
-//   it("should render a list of Ideas", () => {
-//     // snapshot for a list of ideas of length 2
-//     const CardListComponent = renderer
-//       .create(<CardList {...CardListProps} />)
-//       .toJSON();
-//     expect(CardListComponent).toMatchSnapshot();
-//   });
-// });
+  // it("should render correctly", () => {
+  //   render(
+  //     <IdeaContext.Provider value={{ dispatch, ideas }}>
+  //       <CardList />
+  //     </IdeaContext.Provider>
+  //   );
+
+  //   expect(screen.getByText("First idea")).toBeInTheDocument();
+  //   expect(screen.getByText("Second idea")).toBeInTheDocument();
+  // });
+
+  it("should correctly map over the ideas in the context", () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <CardList />
+      </IdeaContext.Provider>
+    );
+
+    expect(screen.getAllByRole("textbox").length).toBe(4);
+    // expect(screen.getAllByLabelText("First idea").length).toBe(1);
+  });
+
+  it("should correctly pass the idea prop to each Card component", () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <CardList />
+      </IdeaContext.Provider>
+    );
+
+    expect(screen.getAllByPlaceholderText("Title").at(0).value).toBe(
+      "First idea"
+    );
+    expect(screen.getAllByPlaceholderText("Title").at(1).value).toBe(
+      "Second idea"
+    );
+  });
+
+  it("should render correctly when there are no ideas in the context", () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas: [] }}>
+        <CardList />
+      </IdeaContext.Provider>
+    );
+
+    expect(screen.queryByText("First idea")).toBeNull();
+    expect(screen.queryByText("Second idea")).toBeNull();
+  });
+});

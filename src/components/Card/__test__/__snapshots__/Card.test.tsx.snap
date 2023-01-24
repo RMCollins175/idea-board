@@ -13,56 +13,38 @@ exports[`Idea component tests should render a default Idea component form 1`] = 
     >
       <input
         className="ideaTitleInput"
-        data-testid="IdeaForm.title"
-        id="title"
         name="title"
+        onBlur={[Function]}
         onChange={[Function]}
         placeholder="Title"
         required={true}
-        type="text"
-        value="Title"
       />
     </label>
     <label
-      className="ideaLabelDescription"
-      data-testid="IdeaForm.description"
+      className="ideaDescriptionLabel"
     >
       <textarea
         className="ideaDescriptionInput"
         maxLength={140}
         name="description"
+        onBlur={[Function]}
         onChange={[Function]}
         placeholder="Description"
-        value="Description"
       />
     </label>
-    <p
-      className="ideaTimestamp"
-    >
-      1970-01-02 - 11:17:36
-    </p>
     <div
       className="callToActionContainer"
     >
       <button
-        data-testid="IdeaForm.buttonAdd"
-        disabled={false}
         type="submit"
       >
-        Update
+        Add
       </button>
       <button
-        className="ideaFormButton"
-        data-testid="IdeaForm.buttonReset"
         onClick={[Function]}
+        type="button"
       >
         Reset
-      </button>
-      <button
-        data-testid="IdeaForm.buttonDelete"
-        onClick={[Function]}
-      >
-        Delete
       </button>
     </div>
   </form>

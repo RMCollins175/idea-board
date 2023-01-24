@@ -1,45 +1,72 @@
 import { Card } from "../Card";
 import renderer from "react-test-renderer";
-import { fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
-// const IdeaProps = {
-//   ideaTitle: "Title",
-//   ideaDescription: "Description",
-//   id: 123,
-//   timestamp: 123456789,
-//   addIdea: jest.fn(),
-//   updateIdea: jest.fn(),
-//   deleteIdea: jest.fn(),
-// };
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { format } from "date-fns";
+import { act } from "react-dom/test-utils";
+import { IdeaType } from "../../../utilities/types";
+import { IdeaContext } from "../../../context/IdeaContext";
 
 describe("Idea component tests", () => {
-  it("should render a default Idea component form", () => {
-    const IdeaForm = renderer.create(<Card />).toJSON();
-    expect(IdeaForm).toMatchSnapshot();
+  let idea: IdeaType = {
+    id: "1",
+    title: "Example idea",
+    description: "Example description",
+    timestamp: Date.now()
+  };
+
+  const dispatch = jest.fn();
+  const ideas = [idea];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("The add button becomes enabled when we start typing in the input text box", () => {
-    render(<Card />);
-    // expect the add button to be disabled
-    const addButton = screen.getByTestId("IdeaForm.buttonAdd");
-    expect(addButton).toHaveAttribute("disabled");
+  it("should render the form with the correct inputs and labels", () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <Card idea={idea} />
+      </IdeaContext.Provider>
+    );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "JavaScript" }
+    const titleInput = screen.getByPlaceholderText("Title");
+    const descriptionInput = screen.getByPlaceholderText("Description");
+
+    expect(titleInput).toBeInTheDocument();
+    expect(descriptionInput).toBeInTheDocument();
+  });
+
+  it("should submit the form and call the handleSubmission function with the correct data", async () => {
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <Card idea={idea} />
+      </IdeaContext.Provider>
+    );
+
+    const titleInput = screen.getByPlaceholderText("Title");
+    const descriptionInput = screen.getByPlaceholderText("Description");
+    const submitButton = screen.getByText("Update");
+
+    fireEvent.change(titleInput, { target: { value: "New title" } });
+    fireEvent.change(descriptionInput, {
+      target: { value: "New description" }
     });
-    expect(addButton).toBeEnabled();
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(dispatch).toHaveBeenCalledWith({
+        type: "UPDATE_IDEA",
+        payload: {
+          id: idea.id,
+          title: "New title",
+          description: "New description"
+        }
+      });
+    });
   });
 
-  it("should not allow more than 140 characters in the description", () => {
-    render(<Card />);
-    const descriptionInput = screen.getByTestId("IdeaForm.description");
-    const description = "a".repeat(140);
-
-    userEvent.type(descriptionInput, description);
-    expect(descriptionInput).toHaveValue(description);
-
-    userEvent.type(descriptionInput, "a");
-    expect(descriptionInput).toHaveValue(description);
+  it("should render a default Idea component form", () => {
+    const CardForm = renderer.create(<Card />).toJSON();
+    expect(CardForm).toMatchSnapshot();
   });
 });
