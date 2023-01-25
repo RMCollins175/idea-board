@@ -1,10 +1,9 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { IdeaContext } from "../../../context/IdeaContext";
 import { CardList } from "../CardList";
 import { IdeaType } from "../../../utilities/types";
 
-describe("CardList", () => {
+describe("CardList tests", () => {
   const dispatch = jest.fn();
   const ideas: IdeaType[] = [
     {
