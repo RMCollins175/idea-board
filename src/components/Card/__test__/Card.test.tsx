@@ -133,6 +133,51 @@ describe("Card component tests", () => {
     });
   });
 
+  // it("should delete the idea when the delete button is clicked", async () => {
+  //   const idea: IdeaType = {
+  //     id: "2",
+  //     title: "Example delete idea",
+  //     description: "Example delete description",
+  //     timestamp: Date.now()
+  //   };
+
+  //   const ideas = [idea];
+
+  //   const { getByText } = render(
+  //     <IdeaContext.Provider value={{ dispatch, ideas }}>
+  //       <Card idea={idea} />
+  //     </IdeaContext.Provider>
+  //   );
+
+  //   expect(ideas.length).toBe(1);
+  //   console.log(ideas);
+  //   const deleteButton = screen.getByText("Delete");
+  //   fireEvent.click(deleteButton);
+
+  //   await waitFor(() => {
+  //     expect(dispatch).toHaveBeenCalled();
+  //   });
+  //   expect(ideas.length).toBe(0);
+  //   console.log(ideas);
+  // });
+
+  // it("should add the idea when the add button is clicked", async () => {
+  //   const { getByText } = render(
+  //     <IdeaContext.Provider value={{ dispatch, ideas }}>
+  //       <Card idea={idea} />
+  //     </IdeaContext.Provider>
+  //   );
+  //   const titleInput = screen.getByPlaceholderText("Title");
+  //   const descriptionInput = screen.getByPlaceholderText("Description");
+  //   expect(ideas.length).toBe(0);
+  //   fireEvent.change(titleInput, { target: { value: "title" } });
+  //   fireEvent.change(descriptionInput, { target: { value: "description" } });
+  //   fireEvent.click(getByText("Add"));
+  //   await waitFor(() => {
+  //     expect(ideas.length).toBe(1);
+  //   });
+  // });
+
   it("should render a default Idea component form", () => {
     const CardForm = renderer.create(<Card />).toJSON();
     expect(CardForm).toMatchSnapshot();
