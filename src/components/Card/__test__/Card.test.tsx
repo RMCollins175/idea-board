@@ -20,12 +20,22 @@ describe("Card component tests", () => {
     jest.clearAllMocks();
   });
 
-  it("should render the form with the correct inputs and labels", () => {
+  const renderCardWithIdea = () =>
     render(
       <IdeaContext.Provider value={{ dispatch, ideas }}>
         <Card idea={idea} />
       </IdeaContext.Provider>
     );
+
+  const renderCardFormNoIdea = () =>
+    render(
+      <IdeaContext.Provider value={{ dispatch, ideas }}>
+        <Card />
+      </IdeaContext.Provider>
+    );
+
+  it("should render the form with the correct inputs and labels", () => {
+    renderCardWithIdea();
 
     const titleInput = screen.getByPlaceholderText("Title");
     const descriptionInput = screen.getByPlaceholderText("Description");
@@ -35,31 +45,23 @@ describe("Card component tests", () => {
   });
 
   it("should display the timestamp with the correct format", () => {
-    const { getByText } = render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <Card idea={idea} />
-      </IdeaContext.Provider>
-    );
-    const timestamp = getByText(
+    renderCardWithIdea();
+    const timestamp = screen.getByText(
       format(new Date(idea.timestamp), "yyyy-MM-dd - HH:mm:ss")
     );
     expect(timestamp).toBeInTheDocument();
   });
 
   it("should render the 'Add' button when no idea is passed as a prop", () => {
-    render(<Card />);
+    renderCardFormNoIdea();
     const addButton = screen.getByText("Add");
     expect(addButton).toBeInTheDocument();
   });
 
   it("should have a 'Delete' button and be able to delete an idea when clicked", async () => {
-    const { getByText } = render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <Card idea={idea} />
-      </IdeaContext.Provider>
-    );
+    renderCardWithIdea();
 
-    const deleteButton = getByText("Delete");
+    const deleteButton = screen.getByText("Delete");
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
@@ -74,13 +76,9 @@ describe("Card component tests", () => {
   });
 
   it("should have a 'Reset' button and be able to reset the form when clicked", async () => {
-    const { getByText } = render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <Card />
-      </IdeaContext.Provider>
-    );
+    renderCardFormNoIdea();
 
-    const resetButton = getByText("Reset");
+    const resetButton = screen.getByText("Reset");
     expect(resetButton).toBeInTheDocument();
 
     fireEvent.change(screen.getByPlaceholderText("Title"), {
@@ -104,11 +102,7 @@ describe("Card component tests", () => {
   });
 
   it("should submit the form, call handleSubmission function and update card with the correct data", async () => {
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <Card idea={idea} />
-      </IdeaContext.Provider>
-    );
+    renderCardWithIdea();
 
     const titleInput = screen.getByPlaceholderText("Title");
     const descriptionInput = screen.getByPlaceholderText("Description");

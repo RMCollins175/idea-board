@@ -20,34 +20,29 @@ describe("CardList tests", () => {
     }
   ];
 
-  it("should render correctly", () => {
+  const renderCardList = () =>
     render(
       <IdeaContext.Provider value={{ dispatch, ideas }}>
         <CardList />
       </IdeaContext.Provider>
     );
+
+  it("should render correctly", () => {
+    renderCardList();
 
     expect(screen.getByLabelText("First idea")).toBeInTheDocument();
     expect(screen.getByLabelText("Second idea")).toBeInTheDocument();
   });
 
   it("should correctly map over the ideas in the context", () => {
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <CardList />
-      </IdeaContext.Provider>
-    );
+    renderCardList();
 
     // 2 title intputs and 2 description inputs = 4 in total
     expect(screen.getAllByRole("textbox")).toHaveLength(4);
   });
 
   it("should correctly pass the idea prop to each Card component", () => {
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <CardList />
-      </IdeaContext.Provider>
-    );
+    renderCardList();
 
     expect(screen.getAllByPlaceholderText("Title").at(0).value).toBe(
       "First idea"
@@ -58,11 +53,7 @@ describe("CardList tests", () => {
   });
 
   it("should render correctly when there are no ideas in the context", () => {
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas: [] }}>
-        <CardList />
-      </IdeaContext.Provider>
-    );
+    renderCardList();
 
     expect(screen.queryByText("First idea")).toBeNull();
     expect(screen.queryByText("Second idea")).toBeNull();
