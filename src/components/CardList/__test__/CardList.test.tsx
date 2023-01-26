@@ -44,9 +44,11 @@ describe("CardList tests", () => {
   it("should correctly pass the idea prop to each Card component", () => {
     renderCardList();
 
+    // @ts-ignore
     expect(screen.getAllByPlaceholderText("Title").at(0).value).toBe(
       "First idea"
     );
+    // @ts-ignore
     expect(screen.getAllByPlaceholderText("Title").at(1).value).toBe(
       "Second idea"
     );
