@@ -1,9 +1,17 @@
 import { Card } from "../Card";
 import renderer from "react-test-renderer";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  findAllByTestId,
+  fireEvent,
+  render,
+  screen,
+  waitFor
+} from "@testing-library/react";
 import { IdeaType } from "../../../utilities/types";
 import { IdeaContext } from "../../../context/IdeaContext";
 import { format } from "date-fns";
+import App from "../../../App";
 
 describe("Card component tests", () => {
   let idea: IdeaType = {

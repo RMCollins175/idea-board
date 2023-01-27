@@ -3,6 +3,7 @@
 exports[`Card component tests should render a default Idea component form 1`] = `
 <div
   className="ideaContainer"
+  data-testid="card-component"
 >
   <form
     className="ideaForm"

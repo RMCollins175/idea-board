@@ -7,11 +7,10 @@ import { IdeaType } from "../../utilities/types";
 
 export interface CardProps {
   idea?: IdeaType;
-  testId?: string;
 }
 
 export const Card = (props: CardProps) => {
-  const { idea, testId } = props;
+  const { idea } = props;
   const { dispatch } = useContext(IdeaContext);
 
   const {
@@ -62,7 +61,7 @@ export const Card = (props: CardProps) => {
   const isAnIdea = !!idea?.id;
 
   return (
-    <div className={styles.ideaContainer} data-testId={testId}>
+    <div className={styles.ideaContainer} data-testid="card-component">
       <form
         onSubmit={handleSubmit((data) => handleSubmission(data))}
         className={styles.ideaForm}
