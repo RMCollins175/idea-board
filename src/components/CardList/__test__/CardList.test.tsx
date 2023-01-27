@@ -65,28 +65,4 @@ describe("CardList tests", () => {
     expect(screen.getByTestId("cardlistContainer")).toBeInTheDocument();
     expect(screen.queryByTestId("card-component")).toBeNull();
   });
-
-  // it("should add the idea when the add button is clicked", async () => {
-  //   renderCardList();
-  //   const titleInput = screen.getByPlaceholderText("Title");
-  //   const descriptionInput = screen.getByPlaceholderText("Description");
-  //   const addButton = screen.getByText("Add");
-
-  //   // Get the number of "Title" labels before the button is clicked
-  //   const beforeTitleCount = screen.getAllByText("Title").length;
-
-  //   fireEvent.change(titleInput, { target: { value: "New Title" } });
-  //   fireEvent.change(descriptionInput, {
-  //     target: { value: "New Description" }
-  //   });
-
-  //   fireEvent.click(addButton);
-  //   await waitFor(() => {
-  //     // Get the number of "Title" labels after the button is clicked
-  //     const afterTitleCount = screen.getAllByText("Title").length;
-
-  //     // Expect the number of "Title" labels to have increased by 1
-  //     expect(afterTitleCount).toBe(beforeTitleCount + 1);
-  //   });
-  // });
 });
