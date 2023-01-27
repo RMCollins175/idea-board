@@ -8,9 +8,9 @@ export const CardList = () => {
   const { ideas } = useContext(IdeaContext);
 
   return (
-    <div className={styles.cardlistContainer}>
+    <div className={styles.cardlistContainer} data-testId={"cardlistContainer"}>
       {ideas.map((idea: IdeaType) => (
-        <Card idea={idea} key={idea.id} />
+        <Card idea={idea} key={idea.id} testId="card-component" />
       ))}
     </div>
   );
