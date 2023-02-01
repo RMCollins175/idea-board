@@ -1,4 +1,4 @@
-This is a attempt at the ClearScore Tech Test Idea Board. I started it from scratch.
+This is a attempt at the ClearScore Tech Test Idea Board. I started it from scratch. It's a small exmaple of a React/Typescript app with a few test, and some basic state management.
 
 ### Project Indigo Charlie
 
@@ -14,7 +14,7 @@ Alternatively, you can clone this repo and run the following scripts:
 
 I would have liked to spend more time on this but my time was limited. Here are some considerations and things I would have liked to do with more time:
 
-- with more time would have added more tests
+- with more time would have added more tests and ensure the current tests are more robust
 - add decent erorr states if local storage is not available
 - tried tailwind or some other styling framework or generally just improved the styling, maybe dark mode.
 
