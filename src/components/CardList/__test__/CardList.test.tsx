@@ -3,6 +3,8 @@ import { IdeaContext } from "../../../context/IdeaContext";
 import { CardList } from "../CardList";
 import { IdeaType } from "../../../utilities/types";
 
+// CardList only does one thing - it renders a list of ideas
+
 describe("CardList tests", () => {
   const dispatch = jest.fn();
   const ideas: IdeaType[] = [
