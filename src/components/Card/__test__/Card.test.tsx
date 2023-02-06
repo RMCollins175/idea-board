@@ -28,6 +28,8 @@ describe("Card component tests", () => {
     jest.clearAllMocks();
   });
 
+  // https://testing-library.com/docs/react-testing-library/setup/
+  // pass in value and pass to context
   const renderCardWithIdea = () =>
     render(
       <IdeaContext.Provider value={{ dispatch, ideas }}>
@@ -42,6 +44,7 @@ describe("Card component tests", () => {
       </IdeaContext.Provider>
     );
 
+  // make it clearer what you're testing
   it("should render the form with the correct inputs and labels", () => {
     renderCardWithIdea();
 
@@ -52,11 +55,10 @@ describe("Card component tests", () => {
     expect(descriptionInput).toBeInTheDocument();
   });
 
+  // make it that you're actually that if there is an idea, and it has atimestamp it shows up
   it("should display the timestamp with the correct format", () => {
     renderCardWithIdea();
-    const timestamp = screen.getByText(
-      format(new Date(idea.timestamp), "yyyy-MM-dd - HH:mm:ss")
-    );
+    const timestamp = screen.getByText("2016-13-13");
     expect(timestamp).toBeInTheDocument();
   });
 
@@ -70,9 +72,9 @@ describe("Card component tests", () => {
     renderCardWithIdea();
 
     const deleteButton = screen.getByText("Delete");
-    expect(deleteButton).toBeInTheDocument();
+    // expect(deleteButton).toBeInTheDocument(); // redundant as above will error
 
-    fireEvent.click(deleteButton);
+    fireEvent.click(deleteButton); // use the userEvent as per the docs
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: "DELETE_IDEA",
@@ -87,22 +89,27 @@ describe("Card component tests", () => {
     renderCardFormNoIdea();
 
     const resetButton = screen.getByText("Reset");
-    expect(resetButton).toBeInTheDocument();
+    // expect(resetButton).toBeInTheDocument();// redundant
+
+    const ideaTitle = "Test Title";
 
     fireEvent.change(screen.getByPlaceholderText("Title"), {
-      target: { value: "Test Title" }
+      target: { value: ideaTitle }
     });
+    // user.type(screen.getByPlaceholderText("Title"), 'Test Title')
     fireEvent.change(screen.getByPlaceholderText("Description"), {
       target: { value: "Test Description" }
     });
 
-    expect(screen.getByPlaceholderText("Title")).toHaveValue("Test Title");
+    // thinking about if you could get getByText working
+    expect(screen.getByPlaceholderText("Title")).toHaveValue(ideaTitle);
     expect(screen.getByPlaceholderText("Description")).toHaveValue(
       "Test Description"
     );
 
     fireEvent.click(resetButton);
 
+    //maybe between to use .not.toBeInTheDocument()
     await waitFor(() => {
       expect(screen.getByPlaceholderText("Title")).toHaveValue("");
     });
@@ -141,4 +148,9 @@ describe("Card component tests", () => {
     const CardForm = renderer.create(<Card />).toJSON();
     expect(CardForm).toMatchSnapshot();
   });
+
+  // it("render snapshot", () => {
+  //   const { container } = render(<Card />, { ideas: [idea]})
+  //   expect(container.firstChild).toMatchSnapshot();
+  // });
 });
