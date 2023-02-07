@@ -7,7 +7,7 @@ import { IdeaContext } from "../../context/IdeaContext";
 
 export interface CardProps {
   idea?: IdeaType;
-  dispatch: React.Dispatch<any>;
+  dispatch?: React.Dispatch<any>;
 }
 
 export const Card = (props: CardProps) => {

@@ -9,7 +9,6 @@ import {
 } from "@testing-library/react";
 import { IdeaType } from "../../../utilities/types";
 import { IdeaContext } from "../../../context/IdeaContext";
-import { format } from "date-fns";
 import App from "../../../App";
 
 describe("Card component tests", () => {
@@ -17,7 +16,7 @@ describe("Card component tests", () => {
     id: "1",
     title: "Example idea",
     description: "Example description",
-    timestamp: Date.now()
+    timestamp: 1675762200000
   };
 
   const dispatch = jest.fn();
@@ -43,7 +42,6 @@ describe("Card component tests", () => {
       </IdeaContext.Provider>
     );
 
-  // make it clearer what you're testing
   it("should render the form with the correct inputs and labels when no idea is passed", () => {
     renderCardWithIdea();
 
@@ -58,12 +56,11 @@ describe("Card component tests", () => {
     expect(screen.getByLabelText("Example description")).toBeInTheDocument();
   });
 
-  // make it that you're actually that if there is an idea, and it has atimestamp it shows up
-  // it("should display the timestamp with the correct format", () => {
-  //   renderCardWithIdea();
-  //   const timestamp = screen.getByText("2016-13-13");
-  //   expect(timestamp).toBeInTheDocument();
-  // });
+  it("should display the timestamp with the correct format", () => {
+    renderCardWithIdea();
+    const timestamp = screen.getByText("2023-02-07 - 09:30:00");
+    expect(timestamp).toBeInTheDocument();
+  });
 
   it("should render the 'Add' button when no idea is passed as a prop", () => {
     renderCardFormNoIdea();

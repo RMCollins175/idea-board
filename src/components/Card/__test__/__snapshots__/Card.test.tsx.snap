@@ -90,7 +90,7 @@ exports[`Card component tests snapshot test of Card with ideas 1`] = `
         aria-label="Timestamp"
         class="ideaTimestamp"
       >
-        2023-02-07 - 09:18:18
+        2023-02-07 - 09:30:00
       </p>
       <div
         class="callToActionContainer"
