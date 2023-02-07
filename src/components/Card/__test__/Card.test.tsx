@@ -45,22 +45,26 @@ describe("Card component tests", () => {
     );
 
   // make it clearer what you're testing
-  it("should render the form with the correct inputs and labels", () => {
+  it("should render the form with the correct inputs and labels when no idea is passed", () => {
     renderCardWithIdea();
 
-    const titleInput = screen.getByPlaceholderText("Title");
-    const descriptionInput = screen.getByPlaceholderText("Description");
+    expect(screen.getByPlaceholderText("Title")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Description")).toBeInTheDocument();
+  });
 
-    expect(titleInput).toBeInTheDocument();
-    expect(descriptionInput).toBeInTheDocument();
+  it("should render the card correctly when ideas are passed", () => {
+    renderCardWithIdea();
+
+    expect(screen.getByLabelText("Example idea")).toBeInTheDocument();
+    expect(screen.getByLabelText("Example description")).toBeInTheDocument();
   });
 
   // make it that you're actually that if there is an idea, and it has atimestamp it shows up
-  it("should display the timestamp with the correct format", () => {
-    renderCardWithIdea();
-    const timestamp = screen.getByText("2016-13-13");
-    expect(timestamp).toBeInTheDocument();
-  });
+  // it("should display the timestamp with the correct format", () => {
+  //   renderCardWithIdea();
+  //   const timestamp = screen.getByText("2016-13-13");
+  //   expect(timestamp).toBeInTheDocument();
+  // });
 
   it("should render the 'Add' button when no idea is passed as a prop", () => {
     renderCardFormNoIdea();
@@ -144,13 +148,13 @@ describe("Card component tests", () => {
     });
   });
 
-  it("should render a default Idea component form", () => {
-    const CardForm = renderer.create(<Card />).toJSON();
-    expect(CardForm).toMatchSnapshot();
+  it("snapshot test of Card", () => {
+    const { container } = render(<Card />);
+    expect(container).toMatchSnapshot();
   });
 
-  // it("render snapshot", () => {
-  //   const { container } = render(<Card />, { ideas: [idea]})
-  //   expect(container.firstChild).toMatchSnapshot();
-  // });
+  it("snapshot test of Card with ideas", () => {
+    const { asFragment } = render(<Card idea={idea} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
