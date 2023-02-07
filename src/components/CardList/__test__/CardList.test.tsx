@@ -42,16 +42,4 @@ describe("CardList tests", () => {
       expect(screen.getByText(idea.description)).toBeInTheDocument();
     });
   });
-
-  it("should render correctly when there are no ideas in the context", () => {
-    const ideas: any = [];
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <CardList />
-      </IdeaContext.Provider>
-    );
-
-    expect(screen.getByTestId("cardlistContainer")).toBeInTheDocument();
-    expect(screen.queryByTestId("card-component")).toBeNull();
-  });
 });

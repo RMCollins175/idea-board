@@ -1,5 +1,4 @@
 import { Card } from "../Card";
-import renderer from "react-test-renderer";
 import {
   act,
   findAllByTestId,

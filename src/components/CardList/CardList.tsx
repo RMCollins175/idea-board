@@ -5,12 +5,12 @@ import { Card } from "../Card/Card";
 import styles from "./CardList.module.css";
 
 export const CardList = () => {
-  const { ideas } = useContext(IdeaContext);
+  const { ideas, dispatch } = useContext(IdeaContext);
 
   return (
-    <div className={styles.cardlistContainer} data-testid={"cardlistContainer"}>
+    <div className={styles.cardlistContainer}>
       {ideas.map((idea: IdeaType) => (
-        <Card idea={idea} key={idea.id} />
+        <Card idea={idea} key={idea.id} dispatch={dispatch} />
       ))}
     </div>
   );

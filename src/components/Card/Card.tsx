@@ -1,16 +1,18 @@
-import { useContext } from "react";
 import styles from "./Card.module.css";
 import { format } from "date-fns";
-import { IdeaContext } from "../../context/IdeaContext";
 import { useForm } from "react-hook-form";
 import { IdeaType } from "../../utilities/types";
+import { useContext } from "react";
+import { IdeaContext } from "../../context/IdeaContext";
 
 export interface CardProps {
   idea?: IdeaType;
+  dispatch: React.Dispatch<any>;
 }
 
 export const Card = (props: CardProps) => {
   const { idea } = props;
+  // const { idea, dispatch } = props;
   const { dispatch } = useContext(IdeaContext);
 
   const {
@@ -61,7 +63,7 @@ export const Card = (props: CardProps) => {
   const isAnIdea = !!idea?.id;
 
   return (
-    <div className={styles.ideaContainer} data-testid="card-component">
+    <div className={styles.ideaContainer}>
       <form
         onSubmit={handleSubmit((data) => handleSubmission(data))}
         className={styles.ideaForm}
