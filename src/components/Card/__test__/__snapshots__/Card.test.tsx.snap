@@ -1,56 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Card component tests should render a default Idea component form 1`] = `
-<div
-  className="ideaContainer"
-  data-testid="card-component"
->
-  <form
-    className="ideaForm"
-    onSubmit={[Function]}
+exports[`Card component tests snapshot test of Card 1`] = `
+<div>
+  <div
+    class="ideaContainer"
   >
-    <label
-      className="ideaTitleLabel"
+    <form
+      class="ideaForm"
     >
-      <input
-        className="ideaTitleInput"
-        id="title-undefined"
-        name="title"
-        onBlur={[Function]}
-        onChange={[Function]}
-        placeholder="Title"
-        required={true}
-      />
-    </label>
-    <label
-      className="ideaDescriptionLabel"
-    >
-      <textarea
-        className="ideaDescriptionInput"
-        id="description-undefined"
-        maxLength={140}
-        name="description"
-        onBlur={[Function]}
-        onChange={[Function]}
-        placeholder="Description"
-      />
-    </label>
-    <div
-      className="callToActionContainer"
-    >
-      <button
-        aria-label="Add Button"
-        type="submit"
+      <label
+        class="ideaTitleLabel"
       >
-        Add
-      </button>
-      <button
-        onClick={[Function]}
-        type="button"
+        <input
+          class="ideaTitleInput"
+          id="title-undefined"
+          name="title"
+          placeholder="Title"
+          required=""
+          value=""
+        />
+      </label>
+      <label
+        class="ideaDescriptionLabel"
       >
-        Reset
-      </button>
-    </div>
-  </form>
+        <textarea
+          class="ideaDescriptionInput"
+          id="description-undefined"
+          maxlength="140"
+          name="description"
+          placeholder="Description"
+        />
+      </label>
+      <div
+        class="callToActionContainer"
+      >
+        <button
+          aria-label="Add Button"
+          type="submit"
+        >
+          Add
+        </button>
+        <button
+          type="button"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
+`;
+
+exports[`Card component tests snapshot test of Card with ideas 1`] = `
+<DocumentFragment>
+  <div
+    class="ideaContainer"
+  >
+    <form
+      class="ideaForm"
+    >
+      <label
+        class="ideaTitleLabel"
+      >
+        <input
+          aria-label="Example idea"
+          class="ideaTitleInput"
+          id="title-1"
+          name="title"
+          placeholder="Title"
+          required=""
+          value="Example idea"
+        />
+      </label>
+      <label
+        class="ideaDescriptionLabel"
+      >
+        <textarea
+          aria-label="Example description"
+          class="ideaDescriptionInput"
+          id="description-1"
+          maxlength="140"
+          name="description"
+          placeholder="Description"
+        >
+          Example description
+        </textarea>
+      </label>
+      <p
+        aria-label="Timestamp"
+        class="ideaTimestamp"
+      >
+        2023-02-07 - 09:30:00
+      </p>
+      <div
+        class="callToActionContainer"
+      >
+        <button
+          aria-label="Update Button"
+          type="submit"
+        >
+          Update
+        </button>
+        <button
+          type="button"
+        >
+          Reset
+        </button>
+        <button
+          aria-label="Delete Button"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
 `;

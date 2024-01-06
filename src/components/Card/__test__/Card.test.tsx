@@ -1,5 +1,4 @@
 import { Card } from "../Card";
-import renderer from "react-test-renderer";
 import {
   act,
   findAllByTestId,
@@ -10,7 +9,6 @@ import {
 } from "@testing-library/react";
 import { IdeaType } from "../../../utilities/types";
 import { IdeaContext } from "../../../context/IdeaContext";
-import { format } from "date-fns";
 import App from "../../../App";
 
 describe("Card component tests", () => {
@@ -18,7 +16,7 @@ describe("Card component tests", () => {
     id: "1",
     title: "Example idea",
     description: "Example description",
-    timestamp: Date.now()
+    timestamp: 1675762200000
   };
 
   const dispatch = jest.fn();
@@ -28,6 +26,8 @@ describe("Card component tests", () => {
     jest.clearAllMocks();
   });
 
+  // https://testing-library.com/docs/react-testing-library/setup/
+  // pass in value and pass to context
   const renderCardWithIdea = () =>
     render(
       <IdeaContext.Provider value={{ dispatch, ideas }}>
@@ -42,21 +42,23 @@ describe("Card component tests", () => {
       </IdeaContext.Provider>
     );
 
-  it("should render the form with the correct inputs and labels", () => {
+  it("should render the form with the correct inputs and labels when no idea is passed", () => {
     renderCardWithIdea();
 
-    const titleInput = screen.getByPlaceholderText("Title");
-    const descriptionInput = screen.getByPlaceholderText("Description");
+    expect(screen.getByPlaceholderText("Title")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Description")).toBeInTheDocument();
+  });
 
-    expect(titleInput).toBeInTheDocument();
-    expect(descriptionInput).toBeInTheDocument();
+  it("should render the card correctly when ideas are passed", () => {
+    renderCardWithIdea();
+
+    expect(screen.getByLabelText("Example idea")).toBeInTheDocument();
+    expect(screen.getByLabelText("Example description")).toBeInTheDocument();
   });
 
   it("should display the timestamp with the correct format", () => {
     renderCardWithIdea();
-    const timestamp = screen.getByText(
-      format(new Date(idea.timestamp), "yyyy-MM-dd - HH:mm:ss")
-    );
+    const timestamp = screen.getByText("2023-02-07 - 09:30:00");
     expect(timestamp).toBeInTheDocument();
   });
 
@@ -70,9 +72,9 @@ describe("Card component tests", () => {
     renderCardWithIdea();
 
     const deleteButton = screen.getByText("Delete");
-    expect(deleteButton).toBeInTheDocument();
+    // expect(deleteButton).toBeInTheDocument(); // redundant as above will error
 
-    fireEvent.click(deleteButton);
+    fireEvent.click(deleteButton); // use the userEvent as per the docs
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: "DELETE_IDEA",
@@ -87,22 +89,27 @@ describe("Card component tests", () => {
     renderCardFormNoIdea();
 
     const resetButton = screen.getByText("Reset");
-    expect(resetButton).toBeInTheDocument();
+    // expect(resetButton).toBeInTheDocument();// redundant
+
+    const ideaTitle = "Test Title";
 
     fireEvent.change(screen.getByPlaceholderText("Title"), {
-      target: { value: "Test Title" }
+      target: { value: ideaTitle }
     });
+    // user.type(screen.getByPlaceholderText("Title"), 'Test Title')
     fireEvent.change(screen.getByPlaceholderText("Description"), {
       target: { value: "Test Description" }
     });
 
-    expect(screen.getByPlaceholderText("Title")).toHaveValue("Test Title");
+    // thinking about if you could get getByText working
+    expect(screen.getByPlaceholderText("Title")).toHaveValue(ideaTitle);
     expect(screen.getByPlaceholderText("Description")).toHaveValue(
       "Test Description"
     );
 
     fireEvent.click(resetButton);
 
+    //maybe between to use .not.toBeInTheDocument()
     await waitFor(() => {
       expect(screen.getByPlaceholderText("Title")).toHaveValue("");
     });
@@ -137,8 +144,13 @@ describe("Card component tests", () => {
     });
   });
 
-  it("should render a default Idea component form", () => {
-    const CardForm = renderer.create(<Card />).toJSON();
-    expect(CardForm).toMatchSnapshot();
+  it("snapshot test of Card", () => {
+    const { container } = render(<Card />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it("snapshot test of Card with ideas", () => {
+    const { asFragment } = render(<Card idea={idea} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

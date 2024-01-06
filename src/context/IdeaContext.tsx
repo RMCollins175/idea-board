@@ -24,8 +24,25 @@ const ACTIONS = {
   SET_IDEAS: "SET_IDEAS"
 };
 
+type AddIdea = {
+  type: "Add";
+  idea: IdeaType;
+};
+
+type DeleteIdea = {
+  type: "Delete";
+  ideaId: string;
+};
+
+type ReducerActions = AddIdea | DeleteIdea;
+
 export const IdeaContextProvider = ({ children }: any) => {
+  // const [ideas, dispatch] = useReducer(reducer);
   const [ideasStorage, setIdeasStorage] = useLocalStorage("ideas", "[]");
+
+  // useEffect(() => {
+  //   setLocalStorage
+  // }, [ideas])
 
   useEffect(() => {
     if (ideasStorage && typeof ideasStorage === "string") {
@@ -36,6 +53,7 @@ export const IdeaContextProvider = ({ children }: any) => {
     }
   }, [ideasStorage]);
 
+  // change the type of actions
   const reducer = (state: IdeaType[], action: any) => {
     switch (action.type) {
       case ACTIONS.SET_IDEAS:

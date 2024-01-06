@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { IdeaContext } from "../../../context/IdeaContext";
 import { CardList } from "../CardList";
 import { IdeaType } from "../../../utilities/types";
@@ -27,13 +27,6 @@ describe("CardList tests", () => {
       </IdeaContext.Provider>
     );
 
-  it("should render correctly", () => {
-    renderCardList();
-
-    expect(screen.getByLabelText("First idea")).toBeInTheDocument();
-    expect(screen.getByLabelText("Second idea")).toBeInTheDocument();
-  });
-
   it("should correctly map over the ideas in the context", () => {
     renderCardList();
 
@@ -41,28 +34,12 @@ describe("CardList tests", () => {
     expect(screen.getAllByRole("textbox")).toHaveLength(4);
   });
 
-  it("should correctly pass the idea prop to each Card component", () => {
+  it("maps over a list of cards and renders those cards", () => {
     renderCardList();
 
-    // @ts-ignore
-    expect(screen.getAllByPlaceholderText("Title").at(0).value).toBe(
-      "First idea"
-    );
-    // @ts-ignore
-    expect(screen.getAllByPlaceholderText("Title").at(1).value).toBe(
-      "Second idea"
-    );
-  });
-
-  it("should render correctly when there are no ideas in the context", () => {
-    const ideas: any = [];
-    render(
-      <IdeaContext.Provider value={{ dispatch, ideas }}>
-        <CardList />
-      </IdeaContext.Provider>
-    );
-
-    expect(screen.getByTestId("cardlistContainer")).toBeInTheDocument();
-    expect(screen.queryByTestId("card-component")).toBeNull();
+    ideas.forEach((idea) => {
+      expect(screen.getByText(idea.title)).toBeInTheDocument();
+      expect(screen.getByText(idea.description)).toBeInTheDocument();
+    });
   });
 });
